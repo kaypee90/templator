@@ -1,22 +1,29 @@
 package main
 
 import (
-	log "github.com/sirupsen/logrus"
 	"net/http"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/gorilla/mux"
 )
 
-func init(){
+func init() {
 	log.SetFormatter(&log.TextFormatter{
 		FullTimestamp: true,
 	})
 }
 
 func main() {
-	router :=  mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/_ping", Ping).Methods("GET")
-	port := ":9898"
-	log.Info("Server running and listening on port ", port)
+	router := mux.NewRouter().StrictSlash(true)
+	router.HandleFunc("/", Ping).Methods("GET")
+	router.HandleFunc("/EmailTemplate/", EmailTemplate).Methods("POST")
+	port := GetPort()
+	log.Info("Server running and listening on http://localhost", port)
 	log.Fatal(http.ListenAndServe(port, router))
+}
+
+// GetPort : returns port to be used by server
+func GetPort() string {
+	return ":9898"
 }
