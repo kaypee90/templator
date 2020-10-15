@@ -5,6 +5,7 @@ GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
 BINARY_NAME=templator
 BINARY_UNIX=$(BINARY_NAME)_unix
+OUTPUT_HTML_NAME=Preview.html
 
 all: test build run
 build: 
@@ -13,6 +14,7 @@ test:
 	$(GOTEST) -v ./...
 clean: 
 	$(GOCLEAN)
+	rm -f $(OUTPUT_HTML_NAME)
 	rm -f $(BINARY_NAME)
 	rm -f $(BINARY_UNIX)
 run:
