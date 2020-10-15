@@ -1,0 +1,11 @@
+version: "3.5"
+
+services:
+  web:
+    container_name: templator_dev
+    build: ./
+    ports:
+      - "9898:9898"
+    environment:
+      GO111MODULE: on
+    command: /templator
