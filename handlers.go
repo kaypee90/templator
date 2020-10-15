@@ -1,25 +1,23 @@
 package main
 
 import (
-	"encoding/json"
-	"io/ioutil"
 	"net/http"
 
+	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 )
 
 // Ping : Handles GET ping request **/
-func Ping(w http.ResponseWriter, r *http.Request) {
+func Ping(c *gin.Context) {
 	log.Info("Pinging service - Status Healthy")
 	var message = ResponseMessage{Message: "Healthy"}
-	json.NewEncoder(w).Encode(message)
+	c.JSON(http.StatusOK, message)
 }
 
 // EmailTemplate : Handles POST request for generating templates **/
-func EmailTemplate(w http.ResponseWriter, r *http.Request) {
-	reqBody, _ := ioutil.ReadAll(r.Body)
+func EmailTemplate(c *gin.Context) {
 	var templateDetails TemplateDetails
-	json.Unmarshal(reqBody, &templateDetails)
+	c.BindJSON(&templateDetails)
 
 	isSuccessful := GenerateEmailTemplate(&templateDetails)
 	var message string
@@ -31,5 +29,5 @@ func EmailTemplate(w http.ResponseWriter, r *http.Request) {
 		log.Error("Email Template generation process failed!")
 	}
 	response := ResponseMessage{message}
-	json.NewEncoder(w).Encode(response)
+	c.JSON(http.StatusCreated, response)
 }

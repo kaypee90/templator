@@ -25,7 +25,7 @@ deps:
 	$(GOGET) github.com/gorilla/mux
 	$(GOGET) github.com/sirupsen/logrus
 	$(GOGET) github.com/stretchr/testify/assert
-
+	$(GOGET) github.com/gin-gonic/gin
 
 # Cross compilation
 build-linux:

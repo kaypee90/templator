@@ -1,11 +1,8 @@
 package main
 
 import (
-	"net/http"
-
+	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
-
-	"github.com/gorilla/mux"
 )
 
 func init() {
@@ -15,12 +12,13 @@ func init() {
 }
 
 func main() {
-	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/", Ping).Methods("GET")
-	router.HandleFunc("/EmailTemplate/", EmailTemplate).Methods("POST")
+	router := gin.Default()
+
+	router.GET("/", Ping)
+	router.POST("/EmailTemplate/", EmailTemplate)
 	port := GetPort()
 	log.Info("Server running and listening on http://localhost", port)
-	log.Fatal(http.ListenAndServe(port, router))
+	router.Run(port)
 }
 
 // GetPort : returns port to be used by server
