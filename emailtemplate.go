@@ -8,36 +8,43 @@ import (
 
 // GenerateEmailTemplate : Method for generating email tempates **/
 func GenerateEmailTemplate(templateDetails *TemplateDetails) bool {
+	productDetails := templateDetails.Product
+	emailBodyDetails := templateDetails.Email.Body
+
 	h := hermes.Hermes{
 		Product: hermes.Product{
-			Name:      "Hermes",
-			Link:      "https://example-hermes.com/",
-			Logo:      "http://www.duchess-france.org/wp-content/uploads/2016/01/gopher.png",
-			Copyright: "Copyright © 2020. All rights reserved.",
+			Name:        productDetails.Name,
+			Link:        productDetails.Link,
+			Logo:        productDetails.Logo,
+			Copyright:   productDetails.Copyright,
+			TroubleText: productDetails.TroubleText,
 		},
 	}
 
 	email := hermes.Email{
 		Body: hermes.Body{
-			Title: "",
-			Intros: []string{
-				"Welcome to Hermes! We're very execited to have you on board",
-			},
-			Greeting: "Hi",
-			Actions: []hermes.Action{
-				hermes.Action{
-					Instructions: "To get started with Hermes, please click here:",
-					Button: hermes.Button{
-						Color: "#22BC66", // Optional action button color
-						Text:  "Confirm your account",
-						Link:  "https://hermes-example.com/confirm?token=d9729feb74992cc3482b350163a1a010",
-					},
-				},
-			},
-			Outros: []string{
-				"Need help, or have questions? Just reply to this email, we'd love to help.",
-			},
+			Name:     emailBodyDetails.Name,
+			Title:    emailBodyDetails.Title,
+			Intros:   emailBodyDetails.Intros,
+			Greeting: emailBodyDetails.Greeting,
+			Actions:  []hermes.Action{},
+			Outros:   emailBodyDetails.Outros,
 		},
+	}
+
+	if emailBodyDetails.Actions != nil {
+		for _, action := range emailBodyDetails.Actions {
+			hermesAction := hermes.Action{
+				Instructions: action.Instructions,
+				Button: hermes.Button{
+					Color: action.Button.Color, // Optional action button color
+					Text:  action.Button.Text,
+					Link:  action.Button.Link,
+				},
+			}
+
+			email.Body.Actions = append(email.Body.Actions, hermesAction)
+		}
 	}
 
 	emailBody, err := h.GenerateHTML(email)
