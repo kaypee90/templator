@@ -21,7 +21,7 @@ func main() {
 	router.Run(port)
 }
 
-// GetPort : returns port to be used by server
+// GetPort : returns port to be used by server **/
 func GetPort() string {
 	return ":9898"
 }

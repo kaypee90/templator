@@ -1,18 +1,18 @@
 package main
 
-// ResponseMessage : format of response message to be sent to user
+// ResponseMessage : format of response message to be sent to user **/
 type ResponseMessage struct {
 	Message string `json:"message"`
 }
 
-// Action : an action to be triggered by a user
+// Action : an action to be triggered by a user **/
 type Action struct {
 	Instructions string `json:"instructions"`
 	Button       Button `json:"button"`
 	InviteCode   string `json:"inviteCode"`
 }
 
-// Button : button properties to be generated in template
+// Button : button properties to be generated in template **/
 type Button struct {
 	Color     string `json:"color"`
 	TextColor string `json:"textColor"`
@@ -20,7 +20,7 @@ type Button struct {
 	Link      string `json:"link"`
 }
 
-// Product : product brand details
+// Product : product brand details **/
 type Product struct {
 	Name        string `json:"name"`
 	Link        string `json:"link"`
@@ -29,12 +29,12 @@ type Product struct {
 	TroubleText string `json:"troubleText"`
 }
 
-// Email : content of the email
+// Email : content of the email **/
 type Email struct {
 	Body Body `json:"body"`
 }
 
-// Body : items in the body of the email
+// Body : items in the body of the email **/
 type Body struct {
 	Name      string   `json:"name"`
 	Intros    []string `json:"intros"`
@@ -45,7 +45,7 @@ type Body struct {
 	Title     string   `json:"title"`
 }
 
-// TemplateDetails : contains details of the template
+// TemplateDetails : contains details of the template **/
 type TemplateDetails struct {
 	Product Product `json:"product"`
 	Email   Email   `json:"email"`
