@@ -6,6 +6,7 @@ import (
 )
 
 func init() {
+	// Set datetime for formating for logging **/
 	log.SetFormatter(&log.TextFormatter{
 		FullTimestamp: true,
 	})
