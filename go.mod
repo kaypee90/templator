@@ -7,6 +7,7 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/gotsunami/go-cloudinary v0.0.0-20170316181003-0ed519cc1119
 	github.com/joho/godotenv v1.3.0
+	github.com/kaypee90/go-cloudinary v0.0.0-20201020222812-d38e768fc3e1
 	github.com/matcornic/hermes/v2 v2.1.0
 	github.com/sirupsen/logrus v1.7.0
 	github.com/stretchr/testify v1.6.1

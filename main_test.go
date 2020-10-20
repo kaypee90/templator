@@ -6,6 +6,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+type MockUploader struct {
+}
+
+// UploadTemplate : uploads templates to cloudinary **/
+func (c MockUploader) UploadTemplate(emailBody string) string {
+	return "http://mockurl.com"
+}
+
 func TestGetPort(t *testing.T) {
 	port := GetPort()
 	assert.Equal(t, port, ":9898")
@@ -13,7 +21,8 @@ func TestGetPort(t *testing.T) {
 
 func TestGenerateEmailTemplate(t *testing.T) {
 	var templateDetails TemplateDetails
-	isSuccessful, template := GenerateEmailTemplate(&templateDetails)
+	uploader := MockUploader{}
+	isSuccessful, template := GenerateEmailTemplate(&templateDetails, uploader)
 	assert.Equal(t, isSuccessful, true)
 	assert.NotEmpty(t, template)
 }

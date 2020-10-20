@@ -19,7 +19,9 @@ func EmailTemplate(c *gin.Context) {
 	var templateDetails TemplateDetails
 	c.BindJSON(&templateDetails)
 
-	isSuccessful, template := GenerateEmailTemplate(&templateDetails)
+	uploader := CloudinaryUploader{}
+
+	isSuccessful, template := GenerateEmailTemplate(&templateDetails, uploader)
 	var message string
 	if isSuccessful {
 		message = "Template successfully generated!"
