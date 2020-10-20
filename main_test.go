@@ -9,7 +9,7 @@ import (
 type MockUploader struct {
 }
 
-// UploadTemplate : uploads templates to cloudinary **/
+// UploadTemplate : fake uploader function for testing **/
 func (c MockUploader) UploadTemplate(emailBody string) string {
 	return "http://mockurl.com"
 }
