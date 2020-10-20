@@ -13,6 +13,7 @@ func TestGetPort(t *testing.T) {
 
 func TestGenerateEmailTemplate(t *testing.T) {
 	var templateDetails TemplateDetails
-	isSuccessful := GenerateEmailTemplate(&templateDetails)
+	isSuccessful, template := GenerateEmailTemplate(&templateDetails)
 	assert.Equal(t, isSuccessful, true)
+	assert.NotEmpty(t, template)
 }

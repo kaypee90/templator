@@ -19,7 +19,7 @@ func EmailTemplate(c *gin.Context) {
 	var templateDetails TemplateDetails
 	c.BindJSON(&templateDetails)
 
-	isSuccessful := GenerateEmailTemplate(&templateDetails)
+	isSuccessful, template := GenerateEmailTemplate(&templateDetails)
 	var message string
 	if isSuccessful {
 		message = "Template successfully generated!"
@@ -28,6 +28,7 @@ func EmailTemplate(c *gin.Context) {
 		message = "Template generation failed!"
 		log.Error("Email Template generation process failed!")
 	}
-	response := ResponseMessage{message}
+
+	response := ResponseMessage{message, template}
 	c.JSON(http.StatusCreated, response)
 }

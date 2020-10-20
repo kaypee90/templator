@@ -2,12 +2,15 @@ package main
 
 import (
 	"io/ioutil"
+	"os"
 
+	cloudinary "github.com/gotsunami/go-cloudinary"
 	"github.com/matcornic/hermes/v2"
+	log "github.com/sirupsen/logrus"
 )
 
 // GenerateEmailTemplate : Method for generating email tempates **/
-func GenerateEmailTemplate(templateDetails *TemplateDetails) bool {
+func GenerateEmailTemplate(templateDetails *TemplateDetails) (bool, string) {
 	productDetails := templateDetails.Product
 	emailBodyDetails := templateDetails.Email.Body
 
@@ -57,5 +60,27 @@ func GenerateEmailTemplate(templateDetails *TemplateDetails) bool {
 		panic(err)
 	}
 
-	return true
+	temeplateURL := UploadTemplate(emailBody)
+
+	return true, temeplateURL
+}
+
+// UploadTemplate : uploads templates to cloudinary **/
+func UploadTemplate(emailBody string) string {
+	cloudinaryURI := os.Getenv("CLOUDINARY_URL")
+	cloudinaryFileBase := os.Getenv("CLOUDINARY_FILE_BASE")
+	service, err := cloudinary.Dial(cloudinaryURI)
+	if err != nil {
+		panic(err)
+	}
+
+	var filename string
+	filename, err = service.Upload("Preview.html", nil, "tmptr", true, cloudinary.RawType)
+	if err != nil {
+		panic(err)
+	}
+
+	path := cloudinaryFileBase + filename
+	log.Info(path)
+	return path
 }

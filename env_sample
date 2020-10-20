@@ -1,0 +1,2 @@
+CLOUDINARY_URL=cloudinary://api_key:api_secret@cloud_name
+CLOUDINARY_FILE_BASE=

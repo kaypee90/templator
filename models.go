@@ -2,7 +2,8 @@ package main
 
 // ResponseMessage : format of response message to be sent to user **/
 type ResponseMessage struct {
-	Message string `json:"message"`
+	Message  string `json:"message"`
+	Template string `json:"template,omitempty"`
 }
 
 // Action : an action to be triggered by a user **/

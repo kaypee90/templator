@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	dotenv "github.com/joho/godotenv"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -13,6 +14,11 @@ func init() {
 }
 
 func main() {
+	err := dotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	router := gin.Default()
 
 	router.GET("/", Ping)

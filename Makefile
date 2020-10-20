@@ -26,6 +26,8 @@ deps:
 	$(GOGET) github.com/sirupsen/logrus
 	$(GOGET) github.com/stretchr/testify/assert
 	$(GOGET) github.com/gin-gonic/gin
+	$(GOGET) github.com/joho/godotenv
+	$(GOGET) github.com/gotsunami/go-cloudinary
 
 # Cross compilation
 build-linux:

@@ -17,3 +17,6 @@ templator
 
 # Output of html template generation
 Preview.html
+
+# Env Vars
+*.env
