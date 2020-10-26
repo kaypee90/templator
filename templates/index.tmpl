@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ .title }}</title>
+    <meta name="description" content="">
+    <meta name="author" content="ticlekiwi">
+
+    <meta http-equiv="cleartype" content="on">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<div class="left-menu">
+    <div class="content-logo">
+	<span>API Documentation</span>
+    </div>
+    <div class="content-menu">
+        <ul>
+            <li class="scroll-to-link active" data-target="get-started">
+                <a>GET STARTED</a>
+            </li>
+            <li class="scroll-to-link" data-target="create-template">
+                <a>Create Email Template</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="content-page">
+    <div class="content-code"></div>
+    <div class="content">
+        <div class="overflow-hidden content-section" id="content-get-started">
+            <h1 id="get-started">Get started</h1>
+            <pre>
+    API Endpoint
+
+        https://templator.kwabena.dev/
+                </pre>
+            <p>
+                The Templator API provides programmatic access to create Email Templates on the fly.
+            </p>
+            <p>
+                Currently you need no  <strong>API key</strong> To use this API. Please contact us at <a href="mailto:kaypee90@yahoo.com">kaypee90@yahoo.com</a> with any issues.
+            </p>
+        </div>
+        <div class="overflow-hidden content-section" id="content-create-tempate">
+            <h2 id="create-template">create email template</h2>
+            <pre><code class="json">
+# Sample Request payload
+POST http://templator.kwabena.dev/api/v1/EmailTemplate/
+{
+    "product":{
+        "name": "Sample Company",
+        "link": "https://kwabena.dev",
+        "logo": "http://www.duchess-france.org/wp-content/uploads/2016/01/gopher.png",
+        "copyright": "Copyright © 2020. All rights reserved.",
+        "troubleText": "Contact us in case of trouble"
+    },
+    "email": {
+        "body": {
+        "name": "Samuel",
+        "greeting": "Hello",
+        "intros": ["With great pleasure do I write to you this.", "Come join our ministry"],
+        "actions":[{
+            "instructions": "to get started click on the  confirm button to activate your account",
+            "invitecode": "99988999",
+            "button": {
+                "color": "#22BC66",
+                "text": "Confirm your account",
+				"link": "https://kwabena.dev/confirm?token=d9729feb74992cc3482b350163a1a010"
+            }
+        }],
+        "outros": ["Thank you"],
+        "signature":"Yours sincerely"
+		}
+    }
+}
+                </code></pre>
+            <p>
+                To create email template, you need to make a POST call to the following url :<br>
+                <code class="higlighted">http://templator.kwabena.dev/api/v1/EmailTemplate/</code>
+            </p>
+            <br>
+            <pre><code class="json">
+# Sample Response :
+
+{
+    "message": "Template successfully generated!",
+    "template": "https://res.cloudinary.com/dzd6kpgvk/raw/upload/ba0ts6nouqelmgtjfcja.html"
+}
+
+# Response Code : 
+	201 CREATED
+                </code></pre>
+            <h4>REQUEST PARAMETERS</h4>
+            <table>
+                <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>product :- name</td>
+                    <td>String</td>
+                    <td>The name of the company or product. This name will appear in the signature.</td>
+                </tr>
+				<tr>
+                    <td>product :- link</td>
+                    <td>String</td>
+                    <td>(optional)A url to the company or product's website</td>
+                </tr>
+				<tr>
+                    <td>product :- logo</td>
+                    <td>String</td>
+                    <td>(optional)Url to a logo for the product or company.</td>
+                </tr>
+				<tr>
+                    <td>product :- copyright</td>
+                    <td>String</td>
+                    <td>(optional)Copyright text to be displayed on the template.</td>
+                </tr>
+				<tr>
+                    <td>product :- troubletext</td>
+                    <td>String</td>
+                    <td>(optional) Message to clients incase they experience any issues.</td>
+                </tr>
+				<tr>
+                    <td>email :- body:- name</td>
+                    <td>String</td>
+                    <td>The name of the email receipient to be used in the salutation.</td>
+                </tr>
+                <tr>
+                    <td>email :- body:- greeting</td>
+                    <td>String</td>
+                    <td>The greeting to be used in the salutation eg. <small>Dear or Hello</small></td>
+                </tr>
+                <tr>
+                    <td>email :- body:- intros</td>
+                    <td>String</td>
+                    <td>
+                        Introduction part of the email
+                    </td>
+                </tr>
+                <tr>
+                    <td>email :- body:- actions</td>
+                    <td>String</td>
+                    <td>
+                        (optional)To inject an action button in to the e-mail, supply the Actions object as follows. Alternatively, instead of having a button, an action can be an invite code
+                    </td>
+                </tr>
+                <tr>
+                    <td>email :- body:- outros</td>
+                    <td>String</td>
+                    <td>
+                        (optional) the closing part of the email eg. <small>Thank you for your usual cooperation</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td>email :- body:- signature</td>
+                    <td>String</td>
+                    <td>Signature for ending the email eg. <small>Yours Sincerely</small></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    <div class="content-code"></div>
+</div>
+</body>
+</html>

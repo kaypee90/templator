@@ -1,6 +1,6 @@
 # Templator
 
-- Generate Html when running locally by making a POST request to `http://localhost:9898/EmailTemplate/` 
+- Generate Html when running locally by making a POST request to `http://localhost:9898/api/v1/EmailTemplate/` 
 
 - Sampe request payload
 ```
@@ -10,11 +10,12 @@
         "link": "https://kwabena.dev",
         "logo": "http://www.duchess-france.org/wp-content/uploads/2016/01/gopher.png",
         "copyright": "Copyright © 2020. All rights reserved.",
-        "TroubleText": "Contact us in case of trouble"
+        "troubleText": "Contact us in case of trouble"
     },
     "email": {
         "body": {
         "name": "Samuel",
+        "greeting": "Hello",
         "intros": ["With great pleasure do I write to you this.", "Come join our ministry"],
         "actions":[{
             "instructions": "to get started click on the  confirm button to activate your account",
@@ -26,9 +27,7 @@
             }
         }],
         "outros": ["Thank you"],
-        "greeting": "Hello",
-        "signature":"Yours sincerely",
-        "title": ""
+        "signature":"Yours sincerely"
     }
     }
 

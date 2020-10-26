@@ -20,9 +20,11 @@ func main() {
 	}
 
 	router := gin.Default()
+	router.LoadHTMLGlob("templates/*")
 
-	router.GET("/", Ping)
-	router.POST("/EmailTemplate/", EmailTemplate)
+	router.GET("/_ping", PingHandler)
+	router.GET("/", HomeHandler)
+	router.POST("/api/v1/EmailTemplate/", EmailTemplateHandler)
 	port := GetPort()
 	log.Info("Server running and listening on http://localhost", port)
 	router.Run(port)

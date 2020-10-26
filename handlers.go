@@ -7,21 +7,28 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// Ping : Handles GET ping request **/
-func Ping(c *gin.Context) {
+// PingHandler : Handles GET ping request **/
+func PingHandler(c *gin.Context) {
 	log.Info("Pinging service - Status Healthy")
 	var message = ResponseMessage{Message: "Healthy"}
 	c.JSON(http.StatusOK, message)
 }
 
-// EmailTemplate : Handles POST request for generating templates **/
-func EmailTemplate(c *gin.Context) {
+// HomeHandler : Handles serving of api doc html file **/
+func HomeHandler(c *gin.Context) {
+	c.HTML(http.StatusOK, "index.tmpl", gin.H{
+		"title": "API Documentation",
+	})
+}
+
+// EmailTemplateHandler : Handles POST request for generating templates **/
+func EmailTemplateHandler(c *gin.Context) {
 	var templateDetails TemplateDetails
 	c.BindJSON(&templateDetails)
 
 	uploader := CloudinaryUploader{}
 
-	isSuccessful, template := GenerateEmailTemplate(&templateDetails, uploader)
+	isSuccessful, template := GenerateAndUploadEmailTemplate(&templateDetails, uploader)
 	var message string
 	if isSuccessful {
 		message = "Template successfully generated!"

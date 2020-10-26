@@ -9,8 +9,10 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// GenerateEmailTemplate : Method for generating email tempates **/
-func GenerateEmailTemplate(templateDetails *TemplateDetails, uploader Uploader) (bool, string) {
+const templateName = "Preview.html"
+
+// GenerateAndUploadEmailTemplate : Method for generating email tempates **/
+func GenerateAndUploadEmailTemplate(templateDetails *TemplateDetails, uploader Uploader) (bool, string) {
 	productDetails := templateDetails.Product
 	emailBodyDetails := templateDetails.Email.Body
 
@@ -55,7 +57,7 @@ func GenerateEmailTemplate(templateDetails *TemplateDetails, uploader Uploader) 
 		panic(err)
 	}
 
-	err = ioutil.WriteFile("Preview.html", []byte(emailBody), 0644)
+	err = saveEmailTemplateToDiskForUpload(emailBody)
 	if err != nil {
 		panic(err)
 	}
@@ -63,6 +65,10 @@ func GenerateEmailTemplate(templateDetails *TemplateDetails, uploader Uploader) 
 	temeplateURL := uploader.UploadTemplate(emailBody)
 
 	return true, temeplateURL
+}
+
+func saveEmailTemplateToDiskForUpload(emailBody string) error {
+	return ioutil.WriteFile(templateName, []byte(emailBody), 0644)
 }
 
 // Uploader : Interface for uploading html files **/
@@ -84,7 +90,8 @@ func (c CloudinaryUploader) UploadTemplate(emailBody string) string {
 	}
 
 	var filename string
-	filename, err = service.Upload("Preview.html", nil, "tmptr", true, cloudinary.RawType)
+	// Read generated template from filesytem and upload
+	filename, err = service.Upload(templateName, nil, "tmptr", true, cloudinary.RawType)
 	if err != nil {
 		panic(err)
 	}

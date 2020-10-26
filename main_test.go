@@ -19,10 +19,10 @@ func TestGetPort(t *testing.T) {
 	assert.Equal(t, port, ":9898")
 }
 
-func TestGenerateEmailTemplate(t *testing.T) {
+func TestGenerateAndUploadEmailTemplate(t *testing.T) {
 	var templateDetails TemplateDetails
 	uploader := MockUploader{}
-	isSuccessful, template := GenerateEmailTemplate(&templateDetails, uploader)
+	isSuccessful, template := GenerateAndUploadEmailTemplate(&templateDetails, uploader)
 	assert.Equal(t, isSuccessful, true)
 	assert.NotEmpty(t, template)
 }
