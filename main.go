@@ -16,7 +16,7 @@ func init() {
 func main() {
 	err := dotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Info(".env file wasn't found - Dev")
 	}
 
 	router := gin.Default()
