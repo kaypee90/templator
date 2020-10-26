@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gin-gonic/gin"
 	dotenv "github.com/joho/godotenv"
 	log "github.com/sirupsen/logrus"
@@ -32,5 +34,5 @@ func main() {
 
 // GetPort : returns port to be used by server **/
 func GetPort() string {
-	return ":9898"
+	return os.Getenv("PORT")
 }
