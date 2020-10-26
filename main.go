@@ -34,5 +34,5 @@ func main() {
 
 // GetPort : returns port to be used by server **/
 func GetPort() string {
-	return os.Getenv("PORT")
+	return ":" + os.Getenv("PORT")
 }
