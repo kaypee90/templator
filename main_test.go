@@ -14,6 +14,11 @@ func (c MockUploader) UploadTemplate(emailBody string) string {
 	return "http://mockurl.com"
 }
 
+func (c MockUploader) shortenURL(templateURL string) string {
+
+	return templateURL
+}
+
 func TestGetPort(t *testing.T) {
 	port := GetPort()
 	assert.Equal(t, port, ":9898")

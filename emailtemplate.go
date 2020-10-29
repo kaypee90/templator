@@ -66,7 +66,7 @@ func GenerateAndUploadEmailTemplate(templateDetails *TemplateDetails, uploader U
 	}
 
 	temeplateURL := uploader.UploadTemplate(emailBody)
-	shortenedTemplateURL := shortenURL(temeplateURL)
+	shortenedTemplateURL := uploader.shortenURL(temeplateURL)
 
 	return true, shortenedTemplateURL
 }
@@ -78,6 +78,7 @@ func saveEmailTemplateToDiskForUpload(emailBody string) error {
 // Uploader : Interface for uploading html files **/
 type Uploader interface {
 	UploadTemplate(emailBody string) string
+	shortenURL(templateURL string) string
 }
 
 // CloudinaryUploader : Implementation for uploading files to cloudinary **/
@@ -105,7 +106,7 @@ func (c CloudinaryUploader) UploadTemplate(emailBody string) string {
 	return path
 }
 
-func shortenURL(templateURL string) string {
+func (c CloudinaryUploader) shortenURL(templateURL string) string {
 	request := ShortenerRequest{TemplateURL: templateURL}
 	jsonReq, err := json.Marshal(request)
 	response, err := http.Post(os.Getenv("SHORTENER_URL"), "application/json; charset=utf-8", bytes.NewBuffer(jsonReq))
