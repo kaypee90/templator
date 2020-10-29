@@ -1,5 +1,15 @@
 package main
 
+// ShortenerRequest : shortener request payload **/
+type ShortenerRequest struct {
+	TemplateURL string `json:"templateUrl"`
+}
+
+// ShortenerResponse : shortener response payload **/
+type ShortenerResponse struct {
+	URL string `json:"url"`
+}
+
 // ResponseMessage : format of response message to be sent to user **/
 type ResponseMessage struct {
 	Message  string `json:"message"`

@@ -1,3 +1,4 @@
 CLOUDINARY_URL=cloudinary://api_key:api_secret@cloud_name
-CLOUDINARY_FILE_BASE=
-PORT=:9098
+CLOUDINARY_FILE_BASE=https://res.cloudinary.com/raw/upload/
+PORT=9098
+SHORTENER_URL=https://tshortener.herokuapp.com/

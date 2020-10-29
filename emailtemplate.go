@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"io/ioutil"
+	"net/http"
 	"os"
 
 	cloudinary "github.com/kaypee90/go-cloudinary"
@@ -63,8 +66,9 @@ func GenerateAndUploadEmailTemplate(templateDetails *TemplateDetails, uploader U
 	}
 
 	temeplateURL := uploader.UploadTemplate(emailBody)
+	shortenedTemplateURL := shortenURL(temeplateURL)
 
-	return true, temeplateURL
+	return true, shortenedTemplateURL
 }
 
 func saveEmailTemplateToDiskForUpload(emailBody string) error {
@@ -99,4 +103,23 @@ func (c CloudinaryUploader) UploadTemplate(emailBody string) string {
 	path := cloudinaryFileBase + filename
 	log.Info(path)
 	return path
+}
+
+func shortenURL(templateURL string) string {
+	request := ShortenerRequest{TemplateURL: templateURL}
+	jsonReq, err := json.Marshal(request)
+	response, err := http.Post(os.Getenv("SHORTENER_URL"), "application/json; charset=utf-8", bytes.NewBuffer(jsonReq))
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer response.Body.Close()
+	bodyBytes, _ := ioutil.ReadAll(response.Body)
+
+	// Convert response body to ShortenerResponse struct
+	var shortenerResponse ShortenerResponse
+	json.Unmarshal(bodyBytes, &shortenerResponse)
+
+	return shortenerResponse.URL
 }
